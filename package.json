@@ -1,0 +1,24 @@
+{
+    "name": "organizacao-financeira",
+    "version": "1.0.0",
+    "description": "Um app de organização financeira",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "keywords": [
+        "organização",
+        "financeira",
+        "app"
+    ],
+    "author": "Seu Nome",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "canvas": "^2.8.0",
+        "chart.js": "^3.5.1",
+        "express": "^4.17.1",
+        "mongoose": "^6.0.12",
+        "mongosh": "^0.0.1"
+    }
+}
