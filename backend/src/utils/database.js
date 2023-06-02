@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 async function connectDatabase() {
   try {
     // URL de conexão com o banco de dados
-    const dbURL = 'mongodb://localhost:27017/nome-do-banco-de-dados';
+    const dbURL = 'mongodb://localhost:27017/financeApp';
 
     // Opções de configuração do Mongoose
     const options = {
@@ -16,6 +16,7 @@ async function connectDatabase() {
 
     // Conecte ao banco de dados
     await mongoose.connect(dbURL, options);
+    
 
     console.log('Conexão com o banco de dados estabelecida com sucesso!');
   } catch (error) {

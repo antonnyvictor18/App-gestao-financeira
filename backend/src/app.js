@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const connectDatabase = require('./database');
+const connectDatabase = require('./utils/database');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const reportRoutes = require('./routes/reportRoutes');
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 });
 
 // Porta em que o servidor irá escutar
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
 // Inicie o servidor
 app.listen(port, () => {
