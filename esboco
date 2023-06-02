@@ -1,50 +1,25 @@
-meu-app-financeiro/
-├── backend/
-│   ├── config/
-│   │   ├── db.js
-│   │   ├── server.js
-│   │   └── ...
-│   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── expenseController.js
-│   │   ├── incomeController.js
-│   │   └── ...
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Expense.js
-│   │   ├── Income.js
-│   │   └── ...
-│   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── expenseRoutes.js
-│   │   ├── incomeRoutes.js
-│   │   └── ...
-│   ├── services/
-│   │   ├── authService.js
-│   │   ├── expenseService.js
-│   │   ├── incomeService.js
-│   │   └── ...
-│   ├── utils/
-│   │   ├── helpers.js
-│   │   └── ...
-│   ├── app.js
-│   └── ...
-├── frontend/
-│   ├── public/
-│   │   ├── index.html
-│   │   ├── styles.css
-│   │   └── ...
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Login.js
-│   │   │   ├── Dashboard.js
-│   │   │   ├── Reports.js
-│   │   │   └── ...
-│   │   ├── services/
-│   │   │   ├── apiService.js
-│   │   │   └── ...
-│   │   ├── App.js
-│   │   └── index.js
-│   ├── package.json
-│   └── ...
-└── README.md
+- app/
+  - controllers/
+    - UserController.js
+    - ExpenseController.js
+    - IncomeController.js
+    - CreditCardController.js
+    - CreditCardExpenseController.js
+    - ReportController.js
+  - models/
+    - User.js
+    - Expense.js
+    - Income.js
+    - CreditCard.js
+    - CreditCardExpense.js
+  - routes/
+    - userRoutes.js
+    - expenseRoutes.js
+    - incomeRoutes.js
+    - creditCardRoutes.js
+    - creditCardExpenseRoutes.js
+    - reportRoutes.js
+  - middlewares/
+    - authMiddleware.js
+  - index.js
+- package.json
