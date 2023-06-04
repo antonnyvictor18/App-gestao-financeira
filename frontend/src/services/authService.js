@@ -1,27 +1,23 @@
 // Simulação de dados de usuários
-const users = [
-    { id: 1, email: 'user1@example.com', password: 'password1' },
-    { id: 2, email: 'user2@example.com', password: 'password2' },
-  ];
-  
+
   // Função para fazer o login do usuário
-  export const login = async (email, password) => {
+  export const authenticateUser = async (email, password) => {
     try {
       // Simulação de chamada assíncrona para verificar credenciais do usuário
-      const response = await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          const user = users.find((user) => user.email === email && user.password === password);
-          if (user) {
-            resolve({ success: true, user });
-          } else {
-            reject(new Error('Credenciais inválidas'));
-          }
-        }, 1000);
-      });
-  
-      return response;
+      const response = await axios.get('http://localhost:5000/auth/login'); 
+      return response.data;
     } catch (error) {
       throw new Error('Erro ao fazer login');
+    }
+  };
+
+  export const registerUser = async (email, password) => {
+    try {
+      // Simulação de chamada assíncrona para verificar credenciais do usuário
+      const response = await axios.get('http://localhost:5000/auth/register'); 
+      return response.data;
+    } catch (error) {
+      throw new Error('Erro ao fazer o cadastramento');
     }
   };
   

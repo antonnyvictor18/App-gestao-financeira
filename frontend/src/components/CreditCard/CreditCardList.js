@@ -1,5 +1,6 @@
 import React from 'react';
-import { getCreditCards, deleteCreditCard } from '../services/creditCardService';
+import { getCreditCards, deleteCreditCard } from '../../services/creditCardService';
+
 
 const CreditCardList = () => {
   const [creditCards, setCreditCards] = React.useState([]);

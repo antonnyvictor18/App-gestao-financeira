@@ -1,5 +1,5 @@
 import React from 'react';
-import { getExpenses, deleteExpense } from '../services/expenseService';
+import { getExpenses, deleteExpense } from '../../services/expenseService';
 
 const ExpenseList = () => {
   const [expenses, setExpenses] = React.useState([]);

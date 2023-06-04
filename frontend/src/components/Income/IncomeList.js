@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getIncomes, deleteIncome } from '../services/incomeService';
+import { getIncomes, deleteIncome } from '../../services/incomeService';
 
 const IncomeList = () => {
   const [incomes, setIncomes] = useState([]);

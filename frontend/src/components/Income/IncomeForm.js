@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { addIncome } from '../services/incomeService';
+import { addIncome } from '../../services/incomeService';
 
 const IncomeForm = () => {
   const [incomeData, setIncomeData] = useState({

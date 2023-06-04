@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { signUp } from '../services/authService';
+import { registerUser} from '../../services/authService';
+
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -11,7 +12,7 @@ const Signup = () => {
 
     try {
       // Chamar a função de registro do serviço de autenticação
-      const registered = await signUp(username, password, email);
+      const registered = await registerUser(username, password, email);
 
       if (registered) {
         // Registro bem-sucedido, redirecionar para a página de login

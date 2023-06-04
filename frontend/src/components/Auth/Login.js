@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { login } from '../services/authService';
+
+import { authenticateUser } from '../../services/authService';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -10,7 +11,7 @@ const Login = () => {
 
     try {
       // Chamar a função de login do serviço de autenticação
-      const loggedIn = await login(username, password);
+      const loggedIn = await authenticateUser(username, password);
 
       if (loggedIn) {
         // Login bem-sucedido, redirecionar para a página principal
@@ -48,5 +49,6 @@ const Login = () => {
     </form>
   );
 };
+
 
 export default Login;
