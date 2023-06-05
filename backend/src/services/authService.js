@@ -1,7 +1,7 @@
 // authService.js
 
 // Importe os módulos ou dependências necessárias
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
