@@ -1,39 +1,28 @@
-// Simulação de dados de usuários
+import axios from 'axios';
 
-  // Função para fazer o login do usuário
-  export const authenticateUser = async (email, password) => {
-    try {
-      // Simulação de chamada assíncrona para verificar credenciais do usuário
-      const response = await axios.get('http://localhost:5000/auth/login'); 
-      return response.data;
-    } catch (error) {
-      throw new Error('Erro ao fazer login');
-    }
-  };
+export const authenticateUser = async (email, password) => {
+  try {
+    const response = await axios.post('http://localhost:5000/auth/login', { email, password });
+    return response.data;
+  } catch (error) {
+    throw new Error('Erro ao fazer login: ' + error.message);
+  }
+};
 
-  export const registerUser = async (email, password) => {
-    try {
-      // Simulação de chamada assíncrona para verificar credenciais do usuário
-      const response = await axios.get('http://localhost:5000/auth/register'); 
-      return response.data;
-    } catch (error) {
-      throw new Error('Erro ao fazer o cadastramento');
-    }
-  };
-  
-  // Função para fazer o logout do usuário
-  export const logout = async () => {
-    try {
-      // Simulação de chamada assíncrona para fazer o logout
-      const response = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ success: true });
-        }, 500);
-      });
-  
-      return response;
-    } catch (error) {
-      throw new Error('Erro ao fazer logout');
-    }
-  };
-  
+export const registerUser = async (email, password) => {
+  try {
+    const response = await axios.post('http://localhost:5000/auth/register', { email, password });
+    return response.data;
+  } catch (error) {
+    throw new Error('Erro ao fazer o cadastro: ' + error.message);
+  }
+};
+
+export const logout = async () => {
+  try {
+    const response = await axios.post('http://localhost:5000/auth/logout');
+    return response.data;
+  } catch (error) {
+    throw new Error('Erro ao fazer logout: ' + error.message);
+  }
+};
