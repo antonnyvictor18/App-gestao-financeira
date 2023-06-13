@@ -7,6 +7,7 @@ const User = require('../models/User');
 
 // Função para registrar um novo usuário
 async function registerUser(userData) {
+
   try {
     // Verifique se o usuário já está registrado
     const existingUser = await User.findOne({ email: userData.email });

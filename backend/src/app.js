@@ -1,6 +1,7 @@
 // app.js
 
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const connectDatabase = require('./utils/database');
 const authRoutes = require('./routes/authRoutes');
@@ -13,6 +14,9 @@ connectDatabase();
 // Inicialize o aplicativo Express
 const app = express();
 
+// Enable CORS
+app.use(cors());
+
 // Middleware para analisar o corpo das requisições como JSON
 app.use(bodyParser.json());
 
@@ -23,11 +27,8 @@ app.use('/auth', authRoutes);
 // Coloque esse middleware antes das rotas protegidas
 // caso queira que as rotas protegidas exijam autenticação
 app.use((req, res, next) => {
-  // Lógica de autenticação aqui
-  // Verifique se o usuário está autenticado e faça as verificações necessárias
-  // Por exemplo, você pode armazenar um token de autenticação no cabeçalho da requisição e validar esse token
-  // Se a autenticação for bem-sucedida, chame next() para prosseguir com as rotas protegidas
-  // Caso contrário, retorne uma resposta de erro
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   next();
 });
 
