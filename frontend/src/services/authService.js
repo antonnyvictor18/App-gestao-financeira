@@ -12,7 +12,7 @@ export const authenticateUser = async (email, password) => {
 
 export const registerUser = async (email, password) => {
   // try {
-    const response = await fetch('https://example.com/api/request', {
+    const response = await fetch('http://localhost:5000/auth/register', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       credentials: 'same-origin',
