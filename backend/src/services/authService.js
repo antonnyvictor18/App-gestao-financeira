@@ -7,7 +7,6 @@ const User = require('../models/User');
 
 // Função para registrar um novo usuário
 async function registerUser(userData) {
-
   try {
     // Verifique se o usuário já está registrado
     const existingUser = await User.findOne({ email: userData.email });
@@ -30,7 +29,7 @@ async function registerUser(userData) {
 
     return savedUser;
   } catch (error) {
-    throw new Error(`Falha ao registrar o usuário: ${error.message}`);
+    throw new Error(`Falha ao registrar usuário: ${error.message}`);
   }
 }
 

@@ -14,23 +14,28 @@ connectDatabase();
 // Inicialize o aplicativo Express
 const app = express();
 
-// Enable CORS
-app.use(cors());
-
-// Middleware para analisar o corpo das requisições como JSON
-app.use(bodyParser.json());
-
-// Rotas relacionadas à autenticação
-app.use('/auth', authRoutes);
 
 // Middleware de autenticação para as rotas subsequentes
 // Coloque esse middleware antes das rotas protegidas
 // caso queira que as rotas protegidas exijam autenticação
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
+
+// Handle CORB issue
+app.use(function(req, res, next) {
+  res.set('X-Content-Type-Options', 'nosniff');
+  next();
+});
+
+// Middleware para analisar o corpo das requisições como JSON
+app.use(bodyParser.json());
+
+// Rotas relacionadas à autenticação
+app.use('/auth', authRoutes);
 
 // Rotas relacionadas aos usuários
 app.use('/users', userRoutes);
@@ -44,7 +49,7 @@ app.get('/', (req, res) => {
 });
 
 // Porta em que o servidor irá escutar
-const port = process.env.PORT || 5000;
+const port = 5000;
 
 // Inicie o servidor
 app.listen(port, () => {
