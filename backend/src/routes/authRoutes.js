@@ -11,18 +11,38 @@ router.post('/register', (req, res) => {
   // Lógica para lidar com a requisição POST
   console.log('Requisição POST recebida!');
   console.log('URL da requisição:', req.url);
-  console.log('Cabeçalho da requisição:', req.headers);
   console.log('Corpo da requisição:', req.body);
   const body = req.body; // O corpo da requisição, contendo os dados enviados pelo cliente
   AuthService.registerUser(body);
   // Faça o processamento necessário com os dados recebidos
 
   // Envie uma resposta ao cliente
-  res.status(200).json({ message: 'Requisição POST recebida com sucesso!' });
+  res.status(200).json({ message: 'Usuário Registrado com sucesso!' });
+  res.end();
 });
 
 // Rota de login
-router.post('/login', AuthService.authenticateUser);
+router.post('/login', (req, res) => {
+  // Lógica para lidar com a requisição POST
+  console.log('Requisição POST recebida!');
+  console.log('URL da requisição:', req.url);
+  console.log('Corpo da requisição:', req.body);
+  const body = req.body; // O corpo da requisição, contendo os dados enviados pelo cliente
+  if (AuthService.authenticateUser(body)){
+    console.log("Usuário autenticado com sucesso!");
+    res.status(200).json({ message: 'Usuário autenticado com sucesso!' });
+    res.end();
+  }
+  else{
+    console.log("Usuário não autenticado!");
+    res.status(401).json({ message: 'Usuário não autenticado!' });
+    res.end();
+  };
+  // Faça o processamento necessário com os dados recebidos
+  
+  // Envie uma resposta ao cliente
+  
+});
 
 // Rota de logout
 router.post('/logout', AuthController.logout);

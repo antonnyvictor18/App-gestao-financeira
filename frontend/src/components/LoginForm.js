@@ -4,17 +4,17 @@ import { authenticateUser, registerUser } from '../services/authService';
 
 const LoginForm = () => {
   const history = useHistory();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const userData = await authenticateUser(username, password);
+      const userData = await authenticateUser(email, password);
       // Redirect to the home page after successful login
       history.push({
         pathname: '/home',
-        state: { username: username }
+        state: { email: email}
       });
     } catch (error) {
       // Display an error message if the credentials are invalid
@@ -27,12 +27,12 @@ const LoginForm = () => {
       <h2>Login</h2>
       <form className="form" onSubmit={handleLogin}>
         <div>
-          <label htmlFor="username">Usuário:</label>
+          <label htmlFor="email">Usuário:</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
