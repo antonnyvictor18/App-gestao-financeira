@@ -11,7 +11,6 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const userData = await authenticateUser(username, password);
-      setUser(userData);
       // Redirect to the home page after successful login
       history.push({
         pathname: '/home',
