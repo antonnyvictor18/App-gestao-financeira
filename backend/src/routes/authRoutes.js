@@ -4,8 +4,22 @@ const AuthController = require('../controllers/AuthController');
 const AuthService = require('../services/authService');
 
 
-// Rota de Registro de usuário
-router.post('/register', AuthService.registerUser);
+//Rota de Registro de usuário
+//router.post('/register', AuthService.registerUser);
+
+router.post('/register', (req, res) => {
+  // Lógica para lidar com a requisição POST
+  console.log('Requisição POST recebida!');
+  console.log('URL da requisição:', req.url);
+  console.log('Cabeçalho da requisição:', req.headers);
+  console.log('Corpo da requisição:', req.body);
+  const body = req.body; // O corpo da requisição, contendo os dados enviados pelo cliente
+  AuthService.registerUser(body);
+  // Faça o processamento necessário com os dados recebidos
+
+  // Envie uma resposta ao cliente
+  res.status(200).json({ message: 'Requisição POST recebida com sucesso!' });
+});
 
 // Rota de login
 router.post('/login', AuthService.authenticateUser);
@@ -14,8 +28,8 @@ router.post('/login', AuthService.authenticateUser);
 router.post('/logout', AuthController.logout);
 
 // Add a default error handler for unsupported HTTP methods
-router.all('/register', (req, res) => {
-    res.status(405).send('Method Not Allowed');
-  });
+//router.all('/register', (req, res) => {
+ //   res.status(405).send('Method Not Allowed');
+ // });
 
 module.exports = router;

@@ -20,6 +20,7 @@ export const registerUser = async (email, password) => {
     });
 
     const data = await response.json();
+    console.log(data);
     return data;
   // } catch (error) {
   //   throw new Error('Erro ao fazer o cadastro: ' + error.message);
