@@ -10,15 +10,22 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const userData = await authenticateUser(email, password);
+      const authUser = await authenticateUser(email, password);
+      console.log('authUser: ', authUser);
+      if (!authUser) {
+        throw new Error('Credenciais inválidas. Por favor, tente novamente.');
+      }
+      console.log('passou por aqui')
       // Redirect to the home page after successful login
       history.push({
         pathname: '/home',
         state: { email: email}
       });
-    } catch (error) {
+     
+    }
+  catch (error) {
       // Display an error message if the credentials are invalid
-      alert('Credenciais inválidas. Por favor, tente novamente.');
+      alert(error.message);
     }
   };
 
