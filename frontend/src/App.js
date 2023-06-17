@@ -14,6 +14,7 @@ import CreditCardList from './components/CreditCard/CreditCardList';
 import LoginPage from './Pages/LoginPage';
 import HomePage from './Pages/HomePage';
 import SignUpPage from './Pages/SignUpPage';
+import RegisterValuesPage from './Pages/RegisterValuesPage';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route exact path="/" component={LoginPage} />
         <Route path="/home"component={HomePage} />
         <Route path="/signup"component={SignUpPage} />
+        <Route path="/test"component={RegisterValuesPage} />
       </Switch>
     </Router>
   );

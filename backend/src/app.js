@@ -14,6 +14,13 @@ connectDatabase();
 // Inicialize o aplicativo Express
 const app = express();
 
+// Enable CORS
+app.use(cors(
+  {origin:"http://localhost:3000",
+      credentials:true,
+      allowHeaders:"Content-Type"
+  }
+  ));
 
 // Middleware de autenticação para as rotas subsequentes
 // Coloque esse middleware antes das rotas protegidas

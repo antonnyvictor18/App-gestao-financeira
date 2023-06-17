@@ -7,30 +7,27 @@ const User = require('../models/User');
 
 // Função para registrar um novo usuário
 async function registerUser(userData) {
-  try {
-    // Verifique se o usuário já está registrado
-    const existingUser = await User.findOne({ email: userData.email });
-    if (existingUser) {
-      throw new Error('Este email já está registrado. Por favor, faça login.');
-    }
-
-    // Criptografe a senha antes de salvar no banco de dados
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-
-    // Crie um novo objeto de usuário com os dados fornecidos
-    const newUser = new User({
-      email: userData.email,
-      password: hashedPassword,
-      // Outros campos de dados pessoais, se necessário
-    });
-
-    // Salve o novo usuário no banco de dados
-    const savedUser = await newUser.save();
-
-    return savedUser;
-  } catch (error) {
-    throw new Error(`Falha ao registrar usuário: ${error.message}`);
+  console.log(userData.email);
+  // Verifique se o usuário já está registrado
+  const existingUser = await User.findOne({ email: userData.email });
+  if (existingUser) {
+    throw new Error('Este email já está registrado. Por favor, faça login.');
   }
+
+  // Criptografe a senha antes de salvar no banco de dados
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+  // Crie um novo objeto de usuário com os dados fornecidos
+  const newUser = new User({
+    email: userData.email,
+    password: hashedPassword,
+    // Outros campos de dados pessoais, se necessário
+  });
+
+  // Salve o novo usuário no banco de dados
+  const savedUser = await newUser.save();
+
+  return savedUser;
 }
 
 // Função para autenticar um usuário

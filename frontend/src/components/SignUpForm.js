@@ -23,7 +23,7 @@ const SignUpForm = () => {
   
     return (
       <div className="container">
-        <h2>Sign Up</h2>
+        <h2>Cadastro</h2><br></br>
         <form className="form" onSubmit={handleSignup}>
           <div>
             <label htmlFor="username">Usuário:</label>
