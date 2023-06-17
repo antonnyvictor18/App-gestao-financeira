@@ -10,16 +10,21 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const authUser = await authenticateUser(email, password);
-      console.log('authUser: ', authUser);
-      if (!authUser) {
-        throw new Error('Credenciais inválidas. Por favor, tente novamente.');
+      const userData = await authenticateUser(email, password);
+      console.log('userData recebido pelo authservice do front: ', userData);
+      if (!userData.authenticated) {
+        console.log('Autenticação falhou:', userData.message);
+        throw new Error(userData.message);
       }
-      console.log('passou por aqui')
+      console.log('Autenticação aprovada. enviando: ', userData, ' para o home');
       // Redirect to the home page after successful login
       history.push({
         pathname: '/home',
-        state: { email: email}
+        state: {
+          name: userData.name,
+          userId: userData.userId, 
+          email: userData.email,
+        }
       });
      
     }

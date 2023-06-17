@@ -9,28 +9,28 @@ export const authenticateUser = async (email, password) => {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     });
 
-    console.log('Resposta recebida: ', response);
+    console.log('Resposta recebida do backend: ', response);
     if (response.ok) {
-      const data = await response.json();
-      console.log('Dados recebidos: ', data);
+      const userData = await response.json();
+      console.log('Dados recebidos pelo backend: ', userData);
     
       // Verifica se a autenticação foi aprovada
-      if (data.success) {
-        console.log('Autenticação aprovada');
-        return true;
+      if (userData.authenticated) {
+        console.log('Autenticação aprovada. enviando: ', userData);
+        return userData;
         // Faça algo quando a autenticação for aprovada
       } else {
-        console.log('Autenticação falhou:', data.message);
-        return false;
+        console.log('Autenticação falhou:', userData.message);
+        return userData;
       }
     } else {
       console.log('Erro na requisição:', response.status);
-      return false;
+      throw new Error('Erro na requisição: ' + response.status);
       // Trate o erro de requisição conforme necessário
     }
 
   } catch (error) {
-    return false;
+    return { authenticated: false, message: error.message };
   }
 };
 

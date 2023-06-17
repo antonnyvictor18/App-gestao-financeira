@@ -55,12 +55,12 @@ async function authenticateUser(body) {
     // const token = jwt.sign({ userId: user._id }, 'seu_segredo_aqui');
 
     // Retorne o token e as informações do usuário
-    console.log('Retornou: ', true);
-    return true;
+    console.log('Retornou: ',{ authenticated: true, UserId: user._id, name: user.name, email: user.email });
+    return { authenticated: true, UserId: user._id, name: user.name, email: user.email };
+  
   } catch (error) {
-    console.log('Retornou: ', false);
-    console.log(error.message);
-    return false;
+    console.log('Retornou: ',{ authenticated: false, message: error.message});
+    return { authenticated: false, message: error.message};
   }
     
   

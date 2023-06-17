@@ -27,18 +27,18 @@ router.post('/login', async(req, res) => {
   console.log('Requisição POST recebida!');
   console.log('URL da requisição:', req.url);
   console.log('Corpo da requisição:', req.body);
-  const body = req.body; // O corpo da requisição, contendo os dados enviados pelo cliente
-  aprovada =  await AuthService.authenticateUser(body);
+  // O corpo da requisição, contendo os dados enviados pelo cliente
+  const response =  await AuthService.authenticateUser(req.body);
 
-  console.log('aprovada: ', aprovada);
-  if(aprovada){
-    console.log('Entrou no if');
-    res.json({ success: true });
+  console.log('response from AuthService.authenticateUser: ', response);
+  if(response.authenticated){
+    console.log('Entrou no if e enviou: ', response);
+    res.json(response);
   }
   else {
     // Autenticação falhou
-    console.log('Entrou no else');
-    res.json({ success: false, message: 'Credenciais inválidas' });
+    console.log('Entrou no else e enviou: ', response);
+    res.json(response);
   }
 });
 // Rota de logout

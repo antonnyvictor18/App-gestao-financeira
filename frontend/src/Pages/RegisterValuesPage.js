@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 const RegisterValuesPage = () => {
+  const { name } = props.location.state;
+  const { email } = props.location.state;
+  const { userId } = props.location.state;
   const [tableName, setTableName] = useState('');
   const [rows, setRows] = useState([{ id: 1, value: '' }]);
 
