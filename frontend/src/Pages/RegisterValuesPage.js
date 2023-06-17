@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useHistory, Link } from 'react-router-dom';
 
 function RegisterValuesPage (props)  {
   const { name } = props.location.state;
@@ -65,6 +65,16 @@ function RegisterValuesPage (props)  {
     <div>
       <header className='header'>
         Gestão de Finanças Pessoais
+        <nav>
+          <ul>
+            <li>
+              <Link to="/home">Início</Link>
+            </li>
+            <li>
+              <Link to="/RegisterValuesPage">Registre suas Finanças</Link>
+            </li>
+          </ul>
+        </nav>
       </header>
       <div className='container'>
         <h1 className='h1'>Registre os Ganhos e Despesas</h1><br></br>
@@ -81,14 +91,14 @@ function RegisterValuesPage (props)  {
             {rows.map((row) => (
               <tr key={row.id}>
                 <td>
-                  <input
+                  <input className='table-input'
                     type="date"
                     value={row.date}
                     onChange={(e) => handleRowValueChange(row.id, 'date', e.target.value)}
                   />
                 </td>
                 <td>
-                  <select
+                  <select className='table-input'
                     value={row.type}
                     onChange={(e) => handleRowValueChange(row.id, 'type', e.target.value)}
                   >
@@ -97,14 +107,14 @@ function RegisterValuesPage (props)  {
                   </select>
                 </td>
                 <td>
-                  <input
+                  <input className='table-input'
                     type="text"
                     value={row.text}
                     onChange={(e) => handleRowValueChange(row.id, 'text', e.target.value)}
                   />
                 </td>
                 <td>
-                  <input
+                  <input className='table-input'
                     type="text"
                     value={row.text}
                     onChange={(e) => handleRowValueChange(row.id, 'text', e.target.value)}

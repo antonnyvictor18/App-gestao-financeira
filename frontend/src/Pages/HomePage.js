@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory} from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 function HomePage(props) {
   const history = useHistory();
@@ -22,21 +22,21 @@ function HomePage(props) {
 
   return (
     <div>
-      <h1>Home Page</h1>
-      <p>Olá, {name}! Tudo bem ?</p>
-      
-      <div>
-          <br></br>
-          <p>
-          Ainda não se organizou?{' '}
-          <button className="signup-button" onClick={handleClick}>
-        Cadastre suas finanças
-          </button>
-          </p>
+      <header className='header'>
+        Gestão de Finanças Pessoais
+      </header>
+      <div className="page-container">
+        <div className='container'>
+          <h3>Olá, {name}! Tudo bem?.</h3><br></br>
+          <p> Ainda não se organizou? <Link to="/RegisterValuesPage">Cadastre seus Ganhos e Despesas</Link></p><br></br>
         </div>
+      </div>
+      <footer className="footer">
+        <p>Contact the Developers:</p>
+        <p>bernardoocunha@poli.ufrj.br</p>
+      </footer>
     </div>
-
   );
-}
+};
 
 export default HomePage;

@@ -7,7 +7,6 @@ const User = require('../models/User');
 
 // Função para registrar um novo usuário
 async function registerUser(userData) {
-  console.log(userData.email);
   // Verifique se o usuário já está registrado
   const existingUser = await User.findOne({ email: userData.email });
   if (existingUser) {
@@ -19,6 +18,7 @@ async function registerUser(userData) {
 
   // Crie um novo objeto de usuário com os dados fornecidos
   const newUser = new User({
+    name: userData.name,
     email: userData.email,
     password: hashedPassword,
     // Outros campos de dados pessoais, se necessário
@@ -45,7 +45,7 @@ async function authenticateUser(body) {
     console.log('Senha do banco: ', user.password);
     
 
-    const passwordMatch = await bcrypt.compare(body.email, user.password);
+    const passwordMatch = await bcrypt.compare(body.password, user.password);
     if (!passwordMatch) {
       console.log('Credenciais inválidas!');
       throw new Error('Credenciais inválidas');
