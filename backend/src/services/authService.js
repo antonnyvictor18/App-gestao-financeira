@@ -31,28 +31,39 @@ async function registerUser(userData) {
 }
 
 // Função para autenticar um usuário
-async function authenticateUser(email, password) {
-  try {
+async function authenticateUser(body) {
+  try{
     // Verifique se o usuário está registrado
-    const user = await User.findOne({ email });
+    const user = await User.findOne({email: body.email});
     if (!user) {
-      throw new Error('Email não encontrado. Por favor, registre-se.');
+      console.log('Usuário não encontrado!');
+      throw new Error('Usuário não encontrado!');
     }
-
     // Verifique se a senha fornecida corresponde à senha armazenada no banco de dados
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    console.log('Comparando senhas...');
+    console.log("senha digitada: ", body.password);
+    console.log('Senha do banco: ', user.password);
+    
+
+    const passwordMatch = await bcrypt.compare(body.email, user.password);
     if (!passwordMatch) {
-      throw new Error('Senha incorreta. Por favor, tente novamente.');
+      console.log('Credenciais inválidas!');
+      throw new Error('Credenciais inválidas');
     }
 
     // Crie um token JWT (JSON Web Token) para o usuário autenticado
-    const token = jwt.sign({ userId: user._id }, 'seu_segredo_aqui');
+    // const token = jwt.sign({ userId: user._id }, 'seu_segredo_aqui');
 
     // Retorne o token e as informações do usuário
-    return { token, userId: user._id, email: user.email };
+    console.log('Retornou: ', true);
+    return true;
   } catch (error) {
-    throw new Error(`Falha na autenticação do usuário: ${error.message}`);
+    console.log('Retornou: ', false);
+    console.log(error.message);
+    return false;
   }
+    
+  
 }
 
 module.exports = {

@@ -3,13 +3,37 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const connectDatabase = require('./utils/database');
+// const connectDatabase = require('./utils/database');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 
 // Conecte ao banco de dados
-connectDatabase();
+// connectDatabase();
+
+const mongoose = require('mongoose');
+
+// Função para conectar ao banco de dados
+
+try {
+  // URL de conexão com o banco de dados
+  const dbURL = 'mongodb://mongodb:27017/financeApp';
+
+  // Opções de configuração do Mongoose
+  const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  };
+
+  // Conecte ao banco de dados
+  mongoose.connect(dbURL, options);
+  
+
+  console.log('Conexão com o banco de dados estabelecida com sucesso!');
+} catch (error) {
+  console.error(`Falha ao conectar ao banco de dados: ${error.message}`);
+}
+
 
 // Inicialize o aplicativo Express
 const app = express();

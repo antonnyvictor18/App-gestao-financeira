@@ -5,16 +5,18 @@ import { registerUser } from '../services/authService';
 
 const SignUpForm = () => {
     const history = useHistory();
-    const [username, setUsername] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
     const handleSignup = async (e) => {
       e.preventDefault();
       try {
         // Call the registerUser function to register the user
-        await registerUser(username, password);
+        const response = await registerUser(name, email, password);
+        console.log(response);
         // Redirect to the login page after successful signup
-        history.push('/login');
+        history.push('/');
       } catch (error) {
         // Display an error message if the registration fails
         alert(error);
@@ -25,15 +27,26 @@ const SignUpForm = () => {
       <div className="container">
         <h2>Cadastro</h2><br></br>
         <form className="form" onSubmit={handleSignup}>
-          <div>
-            <label htmlFor="username">Usuário:</label>
+        <div>
+            <label htmlFor="name">Nome do Usuário:</label>
             <input
               type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+        </div>
+        
+        <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="text"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
+        
           <div>
             <label htmlFor="password">Senha:</label>
             <input
