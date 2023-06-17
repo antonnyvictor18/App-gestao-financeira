@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 
 function RegisterValuesPage (props)  {
+  const history = useHistory();
   const { name } = props.location.state;
   const { email } = props.location.state;
   const { userId } = props.location.state;
