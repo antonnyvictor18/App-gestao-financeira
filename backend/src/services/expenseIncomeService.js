@@ -1,72 +1,73 @@
 // expenseIncomeService.js
 
-// Importe os módulos ou dependências necessárias
+// Import the necessary modules or dependencies
 const ExpenseIncome = require('../models/ExpenseIncome');
 
-// Função para adicionar uma nova despesa e ganho
+// Function to add a new expense and income
 async function addExpenseIncome(userId, expenseIncomeData) {
   try {
-    // Crie um novo objeto de despesa e ganho com os dados fornecidos
+    // Create a new expense and income object with the provided data
     const newExpenseIncome = new ExpenseIncome({
       userId,
-      description: expenseIncomeData.description,
-      amount: expenseIncomeData.amount,
-      // Outros campos relevantes para a despesa e ganho
+      data: expenseIncomeData.data,
+      tipo: expenseIncomeData.tipo,
+      nome: expenseIncomeData.nome,
+      valor: expenseIncomeData.valor,
     });
 
-    // Salve a nova despesa e ganho no banco de dados
+    // Save the new expense and income to the database
     const savedExpenseIncome = await newExpenseIncome.save();
 
     return savedExpenseIncome;
   } catch (error) {
-    throw new Error(`Falha ao adicionar a despesa e ganho: ${error.message}`);
+    throw new Error(`Failed to add the expense and income: ${error.message}`);
   }
 }
 
-// Função para buscar as despesas e ganhos e ganhos de um usuário
+// Function to get expenses and incomes of a user
 async function getExpenseIncomes(userId) {
   try {
-    // Busque as despesas e ganhos pelo ID do usuário no banco de dados
+    // Fetch expenses and incomes by the user ID from the database
     const expensesIncomes = await ExpenseIncome.find({ userId });
 
-    // Retorne as despesas e ganhos encontradas
+    // Return the found expenses and incomes
     return expensesIncomes;
   } catch (error) {
-    throw new Error(`Falha ao buscar as despesas e ganhos: ${error.message}`);
+    throw new Error(`Failed to fetch the expenses and incomes: ${error.message}`);
   }
 }
 
-// Função para remover uma despesa e ganho
+// Function to remove an expense and income
 async function removeExpenseIncome(expenseIncomeId) {
   try {
-    // Remova a despesa e ganho pelo ID no banco de dados
+    // Remove the expense and income by the ID from the database
     const removedExpenseIncome = await ExpenseIncome.findByIdAndRemove(expenseIncomeId);
 
-    // Verifique se a despesa e ganho existe e foi removida com sucesso
+    // Check if the expense and income exists and was successfully removed
     if (!removedExpenseIncome) {
-      throw new Error('Falha ao remover a despesa e ganho.');
+      throw new Error('Failed to remove the expense and income.');
     }
 
     return removedExpenseIncome;
   } catch (error) {
-    throw new Error(`Falha ao remover a despesa e ganho: ${error.message}`);
+    throw new Error(`Failed to remove the expense and income: ${error.message}`);
   }
 }
 
-// Função para atualizar uma despesa e ganho
+// Function to update an expense and income
 async function updateExpenseIncome(expenseIncomeId, updatedData) {
   try {
-    // Atualize os campos desejados da despesa e ganho no banco de dados
+    // Update the desired fields of the expense and income in the database
     const updatedExpenseIncome = await ExpenseIncome.findByIdAndUpdate(expenseIncomeId, updatedData, { new: true });
 
-    // Verifique se a despesa e ganho existe e foi atualizada com sucesso
+    // Check if the expense and income exists and was successfully updated
     if (!updatedExpenseIncome) {
-      throw new Error('Falha ao atualizar a despesa e ganho.');
+      throw new Error('Failed to update the expense and income.');
     }
 
     return updatedExpenseIncome;
   } catch (error) {
-    throw new Error(`Falha ao atualizar a despesa e ganho: ${error.message}`);
+    throw new Error(`Failed to update the expense and income: ${error.message}`);
   }
 }
 

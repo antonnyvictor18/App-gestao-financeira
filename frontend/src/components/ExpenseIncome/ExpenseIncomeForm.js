@@ -35,30 +35,36 @@ const ExpenseIncomeForm = () => {
   };
 
   const registerTable = () => {
-    // Send the data to the backend for database storage
-    const data = {
-      tableName,
-      rows
-    };
-    // Send the data to the backend using an API call (e.g., fetch or Axios)
-    // Example using fetch:
-    fetch('/api/registerTable', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        // Handle the response from the backend if needed
-        console.log(result);
-      })
-      .catch((error) => {
-        // Handle errors if any
-        console.error(error);
-      });
-  };
+    for (const row in rows){
+      addExpenseIncome()
+    }
+  }
+
+  // const registerTable = () => {
+  //   // Send the data to the backend for database storage
+  //   const data = {
+  //     tableName,
+  //     rows
+  //   };
+  //   // Send the data to the backend using an API call (e.g., fetch or Axios)
+  //   // Example using fetch:
+  //   fetch('/api/registerTable', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+  //     .then((response) => response.json())
+  //     .then((result) => {
+  //       // Handle the response from the backend if needed
+  //       console.log(result);
+  //     })
+  //     .catch((error) => {
+  //       // Handle errors if any
+  //       console.error(error);
+  //     });
+  // };
 
   return (
     <div className='container'>
