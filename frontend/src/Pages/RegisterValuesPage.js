@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
+import { registerExpenseIncome } from '../services/expenseIncomeService';
 
-function RegisterValuesPage (props)  {
+function RegisterValuesPage(props) {
   const history = useHistory();
   const { name } = props.location.state;
   const { email } = props.location.state;
   const { userId } = props.location.state;
   const [tableName, setTableName] = useState('');
-  const [rows, setRows] = useState([{ id: 1, value: '' }]);
+  const [rows, setRows] = useState([{ id: 1, date: '', type: 'Ganho', name: '', amount: '', frequency: '1'}]);
 
   const handleTableNameChange = (e) => {
     setTableName(e.target.value);
   };
 
-  const handleRowValueChange = (id, value) => {
+  const handleRowValueChange = (id, property, value) => {
     const updatedRows = rows.map((row) => {
       if (row.id === id) {
-        return { ...row, value };
+        return { ...row, [property]: value };
       }
       return row;
     });
@@ -26,7 +27,11 @@ function RegisterValuesPage (props)  {
   const addRow = () => {
     const newRow = {
       id: rows.length + 1,
-      value: ''
+      date: '',
+      type: 'Ganho',
+      name: '',
+      amount: '',
+      frequency: '1',
     };
     setRows([...rows, newRow]);
   };
@@ -36,70 +41,51 @@ function RegisterValuesPage (props)  {
     setRows(updatedRows);
   };
 
-  const registerTable = () => {
-    // Send the data to the backend for database storage
-    const data = {
-      tableName,
-      rows
-    };
-    // Send the data to the backend using an API call (e.g., fetch or Axios)
-    // Example using fetch:
-    fetch('/api/registerTable', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        // Handle the response from the backend if needed
-        console.log(result);
-      })
-      .catch((error) => {
-        // Handle errors if any
-        console.error(error);
-      });
+  const handleRegisterExpenseIncome = async (e) => {
+    e.preventDefault();
+    try {
+      console.log("User ID " + userId);
+      const expenseData = {
+        userId: userId,
+        rows: rows,
+      };
+      const response = await registerExpenseIncome(expenseData);
+      console.log(response);
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
     <div>
-      <header className='header'>
-        Gestão de Finanças Pessoais
-        <nav>
-          <ul>
-            <li>
-              <Link to="/home">Início</Link>
-            </li>
-            <li>
-              <Link to="/RegisterValuesPage">Registre suas Finanças</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <div className='container'>
-        <h1 className='h1'>Registre os Ganhos e Despesas</h1><br></br>
-        <table className='table'>
+      <header className="header">Gestão de Finanças Pessoais</header>
+      <div className="container">
+        <h1 className="h1">Registre os Ganhos e Despesas</h1>
+        <br />
+        <table className="table">
           <thead>
             <tr>
               <th>Data</th>
               <th>Tipo</th>
               <th>Nome</th>
               <th>Valor</th>
+              <th>Periodicidade</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row) => (
               <tr key={row.id}>
                 <td>
-                  <input className='table-input'
+                  <input
+                    className="table-input"
                     type="date"
                     value={row.date}
                     onChange={(e) => handleRowValueChange(row.id, 'date', e.target.value)}
                   />
                 </td>
                 <td>
-                  <select className='table-input'
+                  <select
+                    className="table-input"
                     value={row.type}
                     onChange={(e) => handleRowValueChange(row.id, 'type', e.target.value)}
                   >
@@ -108,29 +94,48 @@ function RegisterValuesPage (props)  {
                   </select>
                 </td>
                 <td>
-                  <input className='table-input'
+                  <input
+                    className="table-input"
                     type="text"
-                    value={row.text}
-                    onChange={(e) => handleRowValueChange(row.id, 'text', e.target.value)}
+                    value={row.name}
+                    onChange={(e) => handleRowValueChange(row.id, 'name', e.target.value)}
                   />
                 </td>
                 <td>
-                  <input className='table-input'
+                  <input
+                    className="table-input"
                     type="text"
-                    value={row.text}
-                    onChange={(e) => handleRowValueChange(row.id, 'text', e.target.value)}
+                    value={row.amount}
+                    onChange={(e) => handleRowValueChange(row.id, 'amount', e.target.value)}
                   />
                 </td>
                 <td>
-                  <button className='button' onClick={() => removeRow(row.id)}>Remove</button>
+                  <select
+                    className="table-input"
+                    value={row.frequency}
+                    onChange={(e) => handleRowValueChange(row.id, 'frequency', e.target.value)}
+                  >
+                    <option value="1">Uma vez só</option>
+                    <option value="1w">Uma vez na semana</option>
+                    <option value="1m">Uma vez no mês</option>
+                  </select>
+                </td>
+                <td>
+                  <button className="button" onClick={() => removeRow(row.id)}>
+                    Remove
+                  </button>
                 </td>
               </tr>
             ))}
-          </tbody>  
+          </tbody>
         </table>
-        <br></br>
-        <button className='button' onClick={addRow}>Add Row</button>
-        <button className='button' onClick={registerTable}>Register Table</button>
+        <br />
+        <button className="button" onClick={addRow}>
+          Adicionar Linha
+        </button>
+        <button className="button" onClick={handleRegisterExpenseIncome}>
+          Enviar
+        </button>
       </div>
       <footer className="footer">
         <p>Contact the Developers:</p>
@@ -138,6 +143,6 @@ function RegisterValuesPage (props)  {
       </footer>
     </div>
   );
-};
+}
 
 export default RegisterValuesPage;

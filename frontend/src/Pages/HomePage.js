@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 
 function HomePage(props) {
@@ -27,8 +27,10 @@ function HomePage(props) {
       </header>
       <div className="page-container">
         <div className='container'>
-          <h3>Olá, {name}! Tudo bem?.</h3><br></br>
-          <p> Ainda não se organizou? <Link to="/RegisterValuesPage">Cadastre seus Ganhos e Despesas</Link></p><br></br>
+          <h2>Olá, {name}! Tudo bem?</h2><br></br>
+          <h3> Ainda não se organizou?&nbsp;&nbsp;&nbsp;&nbsp;
+            <button to="/RegisterValuesPage" className='button' onClick={handleClick}>Cadastre seus Ganhos e Despesas</button>
+          </h3><br></br>
         </div>
       </div>
       <footer className="footer">

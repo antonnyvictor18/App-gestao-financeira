@@ -124,3 +124,7 @@ body {
   color: #fff;
   padding: 30px;
 }
+
+li {
+  display: inline;
+}
