@@ -10,7 +10,7 @@ function HomePage(props) {
   const handleClick = () => {
     try {
       history.push({
-        pathname: '/RegisterValuesPage',
+        pathname: '/ExpenseIncomePage',
         state: { name: name, email: email, userId: userId}
       });
 
@@ -28,7 +28,7 @@ function HomePage(props) {
       <div className="page-container">
         <div className='container'>
           <h3>Olá, {name}! Tudo bem?.</h3><br></br>
-          <p> Ainda não se organizou? <Link to="/RegisterValuesPage">Cadastre seus Ganhos e Despesas</Link></p><br></br>
+          <p> Ainda não se organizou? <Link to="/ExpenseIncomePage">Cadastre seus Ganhos e Despesas</Link></p><br></br>
         </div>
       </div>
       <footer className="footer">

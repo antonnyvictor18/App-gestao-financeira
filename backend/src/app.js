@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 // const connectDatabase = require('./utils/database');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
-const reportRoutes = require('./routes/reportRoutes');
+// const reportRoutes = require('./routes/reportRoutes');
 
 // Conecte ao banco de dados
 // connectDatabase();
@@ -72,7 +72,7 @@ app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 
 // Rotas relacionadas aos relatórios
-app.use('/reports', reportRoutes);
+// app.use('/reports', reportRoutes);
 
 // Rota de teste
 app.get('/', (req, res) => {
