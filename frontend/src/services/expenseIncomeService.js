@@ -35,7 +35,7 @@ export const getExpenseIncome = async (body) => {
     console.log('Resposta recebida do backend: ', response);
 
     if (response.status === 200) {
-      const responseData = response.data;
+      const responseData = await response.json(); // Use response.json() to extract JSON data
       console.log('Dados recebidos pelo backend: ', responseData);
       return responseData;
     } else {
@@ -45,5 +45,5 @@ export const getExpenseIncome = async (body) => {
     }
   } catch (error) {
     return { authenticated: false, message: error.message };
-  };
+  }
 };
