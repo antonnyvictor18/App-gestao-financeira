@@ -19,8 +19,11 @@ router.post('/create', async (req, res) => {
 });
 
 // Rota para obter despesas e receitas com filtro de data
-router.get('/get', async (req, res) => {
+router.post('/getData', async (req, res) => {
   try {
+    console.log('Requisição POST recebida!');
+    console.log('URL da requisição:', req.url);
+    console.log('Corpo da requisição:', req.body);
     const expenseIncomeList = await ExpenseIncomeService.getExpenseIncome(req);
     res.status(200).json(expenseIncomeList);
   } catch (error) {

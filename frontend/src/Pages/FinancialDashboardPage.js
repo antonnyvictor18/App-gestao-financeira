@@ -28,15 +28,15 @@ const FinancialDashboardPage = (props) => {
         email: email
       }
       const response = await getExpenseIncome(data);
-      console.log(response);
+      setFinancialData(response); // Update the financialData state with the response data
       history.push({
         pathname: '/FinancialDashboardPage',
-        state: { name: name, email: email, userId: userId}
+        state: { name: name, email: email, userId: userId }
       });
     } catch (error) {
       alert(error);
     }
-  };
+  };  
 
   return (
     <div>
@@ -44,12 +44,10 @@ const FinancialDashboardPage = (props) => {
       <div className='container'>
         <label htmlFor="startDate">Start Date&nbsp;&nbsp;:</label>
         <input type="date" id="startDate" value={startDate} onChange={handleStartDateChange} />
-      </div>
-      <div className='container'>
         <label htmlFor="endDate">End Date:&nbsp;&nbsp;</label>
         <input type="date" id="endDate" value={endDate} onChange={handleEndDateChange} />
+        <button onClick={handleViewData} className='button'>View Data</button>
       </div><br></br>
-      <button onClick={handleViewData} className='button'>View Data</button>
       {financialData.length > 0 && (
         <div>
           <h2 className='h2'>Financial Data:</h2>

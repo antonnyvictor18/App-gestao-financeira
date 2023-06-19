@@ -36,7 +36,9 @@ async function getExpenseIncome(req) {
     const startDate = req.body.startDate;
     const endDate = req.body.endDate;
     const user = await User.findOne({ email: req.body.email });
-    console.log(startDate, endDate, email);
+    console.log(startDate);
+    console.log(endDate);
+    console.log(req.body.email);
     const expenseIncomeList = await ExpenseIncome.find({
       userId: user._id,
       date: { $gte: startDate, $lte: endDate }

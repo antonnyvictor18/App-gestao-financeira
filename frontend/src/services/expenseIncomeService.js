@@ -26,8 +26,7 @@ export const registerExpenseIncome = async (expenseData) => {
 
 export const getExpenseIncome = async (body) => {
   try {
-    console.log('body recebido', body);
-    const response = await axios.get('http://localhost:5000/registerExpenseIncome/get', {
+    const response = await fetch('http://localhost:5000/registerExpenseIncome/getData', {
       method: 'POST',
       body: JSON.stringify(body),
       credentials: 'same-origin',
