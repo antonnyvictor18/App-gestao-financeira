@@ -128,16 +128,6 @@ body {
   padding: 20px;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #007bff;
-  color: #fff;
-  padding: 30px;
-}
-
 li {
   display: inline;
 }
