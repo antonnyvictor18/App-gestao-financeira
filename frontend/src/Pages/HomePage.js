@@ -28,10 +28,13 @@ function HomePage(props) {
       <div className="page-container">
         <div className='container'>
           <h2>Olá, {name}! Tudo bem?</h2><br></br>
-          <h3> Ainda não se organizou?&nbsp;&nbsp;&nbsp;&nbsp;
+          <h3> Gostaria de inserir novas despesas ou novos ganhos?&nbsp;&nbsp;&nbsp;&nbsp;
             <button to="/RegisterValuesPage" className='button' onClick={handleClick}>Cadastre seus Ganhos e Despesas</button>
           </h3><br></br>
-          <button to="/FinancialDashboardPage" className='button' onClick={handleClick}>Acesse aqui seus relatórios</button>
+          <h3> Gostaria de visualizar seus ganhos e despesas?&nbsp;&nbsp;&nbsp;&nbsp;
+            <button to="/FinancialDashboardPage" className='button' onClick={handleClick}>Acesse aqui seus relatórios</button>
+          </h3>
+          
         </div>
       </div>
       <footer className="footer">
