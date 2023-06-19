@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { getExpenseIncome } from '../services/expenseIncomeService';
+import { Chart, LinearScale, CategoryScale, LineController, LineElement, PointElement } from 'chart.js';
+
+Chart.register(LinearScale, CategoryScale, LineController, LineElement, PointElement);
 
 const FinancialDashboardPage = (props) => {
   const history = useHistory();
@@ -12,6 +15,8 @@ const FinancialDashboardPage = (props) => {
   const [financialData, setFinancialData] = useState([]);
   const [totalIncomes, setTotalIncomes] = useState(0);
   const [totalExpenses, setTotalExpenses] = useState(0);
+  const [showChart, setShowChart] = useState(false);
+  const canvasRef = useRef(null);
 
   const handleStartDateChange = (e) => {
     setStartDate(e.target.value);
@@ -27,17 +32,16 @@ const FinancialDashboardPage = (props) => {
       const data = {
         startDate: startDate,
         endDate: endDate,
-        email: email
-      }
+        email: email,
+      };
       const response = await getExpenseIncome(data);
-      setFinancialData(response); // Update the financialData state with the response data
+      setFinancialData(response);
     } catch (error) {
       alert(error);
     }
   };
 
   useEffect(() => {
-    // Calculate total incomes and expenses when financialData changes
     const calculateTotals = () => {
       let incomes = 0;
       let expenses = 0;
@@ -57,11 +61,74 @@ const FinancialDashboardPage = (props) => {
     calculateTotals();
   }, [financialData]);
 
+  useEffect(() => {
+    const calculateCumulativeSum = () => {
+      let cumulativeSum = 0;
+      const financialDataWithCumulativeSum = [];
+
+      // Calculate the balance at each date
+      financialData.forEach((data) => {
+        if (new Date(data.date) <= new Date(endDate)) {
+          if (data.type === 'Ganho') {
+            cumulativeSum += data.amount;
+          } else if (data.type === 'Despesa') {
+            cumulativeSum -= data.amount;
+          }
+          financialDataWithCumulativeSum.push({ ...data, cumulativeSum });
+        }
+      });
+
+      return financialDataWithCumulativeSum;
+    };
+
+    const drawChart = () => {
+      if (showChart && financialData.length > 0) {
+        const chartData = calculateCumulativeSum();
+        const labels = chartData.map((data) => formatDate(new Date(data.date)));
+        const values = chartData.map((data) => data.cumulativeSum);
+
+        const ctx = canvasRef.current.getContext('2d');
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: 'Financial Amount',
+                data: values,
+                borderColor: 'blue',
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              x: {
+                display: true,
+              },
+              y: {
+                display: true,
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+    };
+
+    drawChart();
+  }, [financialData, showChart, endDate]);
+
   function formatDate(date) {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    const formattedDate = new Date(date).toLocaleDateString(undefined, options);
-    return formattedDate;
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
+
+  const toggleChart = () => {
+    setShowChart(!showChart);
+  };
 
   return (
     <div>
@@ -69,16 +136,24 @@ const FinancialDashboardPage = (props) => {
       <div className="container">
         <label htmlFor="startDate">Start Date:&nbsp;&nbsp;</label>
         <input type="date" id="startDate" value={startDate} onChange={handleStartDateChange} style={{ marginRight: '20px' }} />
-        <label htmlFor="endDate">End Date:&nbsp;&nbsp;</label>
-        <input type="date" id="endDate" value={endDate} onChange={handleEndDateChange} style={{ marginRight: '20px' }}/>
-        <button onClick={handleViewData} className="button">
+        <label htmlFor="endDate">
+          End Date:&nbsp;&nbsp;
+        </label>
+        <input type="date" id="endDate" value={endDate} onChange={handleEndDateChange} style={{ marginRight: '20px' }} />
+        <button onClick={handleViewData} className="button" style={{ marginRight: '20px' }}>
           Analisar
         </button>
+        <button onClick={toggleChart} className="button">
+          {showChart ? 'Hide Chart' : 'Show Chart'}
+        </button>
       </div>
+      <br />
       {financialData.length > 0 && (
         <div>
           <div className="container">
-            <h3 className="h3">Ganhos:&nbsp;R${totalIncomes}&nbsp;&nbsp;||&nbsp;&nbsp;Gastos:&nbsp;R${totalExpenses}&nbsp;&nbsp;||&nbsp;&nbsp;Saldo:&nbsp;R${totalIncomes - totalExpenses}</h3>
+            <h3 className="h3">
+              Ganhos:&nbsp;R${totalIncomes}&nbsp;&nbsp;||&nbsp;&nbsp;Gastos:&nbsp;R${totalExpenses}&nbsp;&nbsp;||&nbsp;&nbsp;Saldo:&nbsp;R${totalIncomes - totalExpenses}
+            </h3>
             <table className="table">
               <thead>
                 <tr>
@@ -91,7 +166,7 @@ const FinancialDashboardPage = (props) => {
               <tbody>
                 {financialData.map((data) => (
                   <tr key={data.date}>
-                    <td>{formatDate(data.date)}</td>
+                    <td>{formatDate(new Date(data.date))}</td>
                     <td>{data.type}</td>
                     <td>{data.name}</td>
                     <td>{data.amount}</td>
@@ -100,6 +175,11 @@ const FinancialDashboardPage = (props) => {
               </tbody>
             </table>
           </div>
+        </div>
+      )}
+      {showChart && (
+        <div className="container">
+          <canvas id="chart" ref={canvasRef} width="400" height="200"></canvas>
         </div>
       )}
       <footer className="footer">
