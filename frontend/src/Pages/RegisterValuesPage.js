@@ -143,7 +143,10 @@ function RegisterValuesPage(props) {
       </div>
       <footer className="footer">
         <p>Contact the Developers:</p>
+        <p>antonny.victor.silva@poli.ufrj.br</p>
         <p>bernardoocunha@poli.ufrj.br</p>
+        <p>fredeci@poli.ufrj.br</p>
+        <p>wpfaltz@poli.ufrj.br</p>
       </footer>
     </div>
   );

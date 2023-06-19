@@ -31,11 +31,15 @@ function HomePage(props) {
           <h3> Ainda não se organizou?&nbsp;&nbsp;&nbsp;&nbsp;
             <button to="/RegisterValuesPage" className='button' onClick={handleClick}>Cadastre seus Ganhos e Despesas</button>
           </h3><br></br>
+          <button to="/FinancialDashboardPage" className='button' onClick={handleClick}>Acesse aqui seus relatórios</button>
         </div>
       </div>
       <footer className="footer">
         <p>Contact the Developers:</p>
+        <p>antonny.victor.silva@poli.ufrj.br</p>
         <p>bernardoocunha@poli.ufrj.br</p>
+        <p>fredeci@poli.ufrj.br</p>
+        <p>wpfaltz@poli.ufrj.br</p>
       </footer>
     </div>
   );

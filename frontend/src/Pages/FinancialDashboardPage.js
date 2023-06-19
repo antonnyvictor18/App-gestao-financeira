@@ -40,7 +40,7 @@ const FinancialDashboardPage = (props) => {
 
   return (
     <div>
-      <header className="header">Dashobard</header>
+      <header className="header">Dashboard</header>
       <div className='container'>
         <label htmlFor="startDate">Start Date&nbsp;&nbsp;:</label>
         <input type="date" id="startDate" value={startDate} onChange={handleStartDateChange} />
@@ -77,7 +77,10 @@ const FinancialDashboardPage = (props) => {
       )}
       <footer className="footer">
         <p>Contact the Developers:</p>
+        <p>antonny.victor.silva@poli.ufrj.br</p>
         <p>bernardoocunha@poli.ufrj.br</p>
+        <p>fredeci@poli.ufrj.br</p>
+        <p>wpfaltz@poli.ufrj.br</p>
       </footer>
     </div>
   );

@@ -12,7 +12,7 @@ const SignUpPage = () => {
         <div className="left-section">
           <div className='container'>
             <h3>Cadastre-se de forma fácil, rápida e segura.</h3><br></br>
-            <p> Basta fazê-lo com um email e senha</p><br></br>
+            <p> Basta criar um nome de usuário, uma senha e inserir um e-mail válido ao lado.</p><br></br>
           </div>
         </div>
         <div className="right-section">
@@ -21,7 +21,10 @@ const SignUpPage = () => {
       </div>
       <footer className="footer">
         <p>Contact the Developers:</p>
+        <p>antonny.victor.silva@poli.ufrj.br</p>
         <p>bernardoocunha@poli.ufrj.br</p>
+        <p>fredeci@poli.ufrj.br</p>
+        <p>wpfaltz@poli.ufrj.br</p>
       </footer>
     </div>
   );
