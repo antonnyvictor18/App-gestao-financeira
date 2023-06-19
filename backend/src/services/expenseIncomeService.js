@@ -1,10 +1,11 @@
 // Importe os módulos ou dependências necessárias
 const ExpenseIncome = require('../models/ExpenseIncome');
+const User = require('../models/User');
 
 async function addExpenseIncome(req) {
   try {
     const expenseData = req.body.rows;
-    const { userId } = req.body.userId;
+    const user = await User.findOne({ email: req.body.email });
 
     const savedExpenseIncomeList = [];
     for (const expense of expenseData) {
@@ -15,7 +16,7 @@ async function addExpenseIncome(req) {
         name: expense.name,
         amount: expense.amount,
         frequency: expense.frequency,
-        userId: userId
+        userId: user._id
       });
       
       // Save the new expense in the database
@@ -29,6 +30,29 @@ async function addExpenseIncome(req) {
   }
 }
 
+async function getExpenseIncome(req) {
+  try {
+    console.log('Entrada Na função no Back');
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const user = await User.findOne({ email: req.body.email });
+    console.log(startDate, endDate, email);
+    const expenseIncomeList = await ExpenseIncome.find({
+      userId: user._id,
+      date: { $gte: startDate, $lte: endDate }
+    });
+    console.log('Sucess na funcao do back');
+    return expenseIncomeList;
+  } catch (error) {
+    throw new Error(`Failed to fetch the expense/income: ${error.message}`);
+  }
+}
+
 module.exports = {
   addExpenseIncome,
+  getExpenseIncome
 };
+
+
+
+

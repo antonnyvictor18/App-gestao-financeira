@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const registerExpenseIncome = async (rows) => {
+export const registerExpenseIncome = async (expenseData) => {
   try {
     const response = await fetch('http://localhost:5000/registerExpenseIncome/create', {
       method: 'POST',
-      body: JSON.stringify(rows),
+      body: JSON.stringify(expenseData),
       credentials: 'same-origin',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     });
@@ -12,6 +12,31 @@ export const registerExpenseIncome = async (rows) => {
 
     if (response.ok) {
       const responseData = await response.json();
+      console.log('Dados recebidos pelo backend: ', responseData);
+      return responseData;
+    } else {
+      console.log('Erro na requisição:', response.status);
+      throw new Error('Erro na requisição: ' + response.status);
+      // Trate o erro de requisição conforme necessário
+    }
+  } catch (error) {
+    return { authenticated: false, message: error.message };
+  };
+};
+
+export const getExpenseIncome = async (body) => {
+  try {
+    console.log('body recebido', body);
+    const response = await axios.get('http://localhost:5000/registerExpenseIncome/get', {
+      method: 'POST',
+      body: JSON.stringify(body),
+      credentials: 'same-origin',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+    });
+    console.log('Resposta recebida do backend: ', response);
+
+    if (response.status === 200) {
+      const responseData = response.data;
       console.log('Dados recebidos pelo backend: ', responseData);
       return responseData;
     } else {

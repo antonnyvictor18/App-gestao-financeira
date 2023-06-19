@@ -15,6 +15,7 @@ import LoginPage from './Pages/LoginPage';
 import HomePage from './Pages/HomePage';
 import SignUpPage from './Pages/SignUpPage';
 import RegisterValuesPage from './Pages/RegisterValuesPage';
+import FinancialDashboardPage from './Pages/FinancialDashboardPage';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/home"component={HomePage} />
         <Route path="/signup"component={SignUpPage} />
         <Route path="/RegisterValuesPage"component={RegisterValuesPage} />
+        <Route path="/FinancialDashboardPage"component={FinancialDashboardPage} />
       </Switch>
     </Router>
   );

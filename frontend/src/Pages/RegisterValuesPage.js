@@ -44,13 +44,17 @@ function RegisterValuesPage(props) {
   const handleRegisterExpenseIncome = async (e) => {
     e.preventDefault();
     try {
-      console.log("User ID " + userId);
+      console.log("Email " + email);
       const expenseData = {
-        userId: userId,
+        email: email,
         rows: rows,
       };
       const response = await registerExpenseIncome(expenseData);
       console.log(response);
+      history.push({
+        pathname: '/FinancialDashboardPage',
+        state: { name: name, email: email, userId: userId}
+      });
     } catch (error) {
       alert(error);
     }
