@@ -26,10 +26,7 @@ const LoginPage = () => {
       </div>
       <footer className="footer">
         <p>Contact the Developers:</p>
-        <p>antonny.victor.silva@poli.ufrj.br</p>
-        <p>bernardoocunha@poli.ufrj.br</p>
-        <p>fredeci@poli.ufrj.br</p>
-        <p>wpfaltz@poli.ufrj.br</p>
+        <p>antonny.victor.silva@poli.ufrj.br&nbsp;|&nbsp;bernardoocunha@poli.ufrj.br&nbsp;|&nbsp;fredeci@poli.ufrj.br&nbsp;|&nbsp;wpfaltz@poli.ufrj.br</p>
       </footer>
     </div>
   );
