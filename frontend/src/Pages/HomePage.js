@@ -20,6 +20,19 @@ function HomePage(props) {
     }
   };
 
+  const handleClick2 = () => {
+    try {
+      history.push({
+        pathname: '/FinancialDashboardPage',
+        state: { name: name, email: email, userId: userId}
+      });
+
+    }
+  catch (error) {
+      alert(error.message);
+    }    
+  };
+
   return (
     <div>
       <header className='header'>
@@ -32,7 +45,7 @@ function HomePage(props) {
             <button to="/RegisterValuesPage" className='button' onClick={handleClick}>Cadastre seus Ganhos e Despesas</button>
           </h3><br></br>
           <h3> Gostaria de visualizar seus ganhos e despesas?&nbsp;&nbsp;&nbsp;&nbsp;
-            <button to="/FinancialDashboardPage" className='button' onClick={handleClick}>Acesse aqui seus relatórios</button>
+            <button to="/FinancialDashboardPage" className='button' onClick={handleClick2}>Acesse aqui seus relatórios</button>
           </h3>
           
         </div>
